@@ -1,0 +1,150 @@
+# K-Means Trading Strategy Configuration
+# Professional configuration file for hyperparameters and system settings
+
+# Trading Strategy Parameters
+strategy:
+  # Minimum number of data points required for analysis
+  min_data_points: 30
+  
+  # K-means clustering parameters
+  clustering:
+    # Maximum number of clusters to evaluate during elbow method
+    max_clusters: 10
+    # K-means algorithm parameters
+    init_method: "k-means++"
+    random_state: 42
+    n_init: 10
+  
+  # Sector Analysis Parameters
+  sectors:
+    # Epsilon: boundary tolerance factor (percentage of sector range)
+    epsilon_factor: 0.01  # 1% of sector range
+    # Threshold: signal generation threshold factor (percentage of sector range)
+    threshold_factor: 0.3  # 30% of sector range
+    
+    # KDE (Kernel Density Estimation) parameters
+    kde:
+      # Number of points for KDE calculation
+      kde_points: 200
+      # Overall KDE calculation points
+      overall_kde_points: 200
+
+# Interactive Brokers Configuration
+interactive_brokers:
+  # Connection settings
+  connection:
+    host: "127.0.0.1"
+    # TWS port: 7497, Gateway port: 7496
+    port: 7497
+    client_id: 1
+  
+  # Data request settings
+  data_request:
+    # Default duration for historical data
+    default_duration: "1 M"
+    # Default bar size
+    default_bar_size: "1 day"
+    # Regular trading hours only
+    default_rth: true
+    # Timeout for data requests (seconds)
+    request_timeout: 50
+  
+  # Contract settings for US equities
+  contract_defaults:
+    sec_type: "STK"
+    exchange: "SMART"
+    currency: "USD"
+
+# WebSocket Server Configuration
+websocket_server:
+  # Server connection settings
+  host: "localhost"
+  port: 8765
+  
+  # Connection limits and timeouts
+  max_connections: 50
+  connection_timeout: 300  # 5 minutes
+
+# Web Dashboard Configuration
+dashboard:
+  # Chart visualization settings
+  charts:
+    # Default chart dimensions
+    default_width: 1200
+    default_height: 600
+    
+    # KDE chart settings
+    kde_chart:
+      height: 400
+      margin:
+        top: 20
+        right: 30
+        bottom: 30
+        left: 40
+    
+    # Price changes chart settings
+    gains_losses_chart:
+      height: 800
+      bar_gap: 0.25
+  
+  # Default form selections
+  form_defaults:
+    duration: "1 M"
+    bar_size: "1 day"
+    rth: true
+
+# Logging Configuration
+logging:
+  # Log level: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  level: "INFO"
+  # Log format
+  format: "%(asctime)s - %(levelname)s - %(message)s"
+  
+  # File logging (optional)
+  file_logging:
+    enabled: false
+    filename: "kmeans_trading.log"
+    max_bytes: 10485760  # 10MB
+    backup_count: 3
+
+# Performance and Resource Settings
+performance:
+  # Enable/disable median sector calculations (resource intensive)
+  enable_median_sectors: false
+  
+  # Memory management
+  memory:
+    # Clean up IB data after processing to prevent memory leaks
+    cleanup_ib_data: true
+    # Maximum data retention per request
+    max_data_retention_mb: 100
+
+# Risk and Validation Settings
+risk_management:
+  # Data validation
+  validation:
+    # Minimum price for valid data (to filter out erroneous data)
+    min_price: 0.01
+    # Maximum price for valid data
+    max_price: 100000
+    # Maximum daily price change percentage (to filter outliers)
+    max_daily_change_percent: 50
+
+# Development and Testing Settings
+development:
+  # Enable debug mode
+  debug_mode: false
+  
+  # Mock data settings (for testing without IB connection)
+  mock_data:
+    enabled: false
+    # Use synthetic data generation
+    use_synthetic: false
+    # Number of synthetic data points
+    synthetic_points: 100
+
+# Environment-specific overrides
+# These can be overridden by environment variables with prefix KMEANS_
+environment_overrides:
+  # Example: KMEANS_IB_HOST=192.168.1.100 would override interactive_brokers.connection.host
+  prefix: "KMEANS_"

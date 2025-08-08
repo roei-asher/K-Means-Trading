@@ -23,35 +23,6 @@ document.getElementById('dataForm').addEventListener('submit', function(e) {
     }));
 });
 
-// function processHistoricalData(data) {
-//     const resultsDiv = document.getElementById('results');
-//     resultsDiv.innerHTML = '';
-
-//     data.tickers.forEach(ticker => {
-//         const tickerDiv = document.createElement('div');
-//         tickerDiv.className = 'ticker-section';
-//         tickerDiv.innerHTML = `
-//             <h2>${ticker}</h2>
-//             <div id="price-chart-${ticker}" class="chart"></div>
-//             <div id="kde-chart-${ticker}" class="chart"></div>
-//             <div id="gains-chart-${ticker}" class="chart"></div>
-//             <div id="losses-chart-${ticker}" class="chart"></div>
-//         `;
-//         resultsDiv.appendChild(tickerDiv);
-//     });
-
-//     // After creating all elements, render the charts
-//     data.tickers.forEach(ticker => {
-//         if (data[ticker].error) {
-//             document.getElementById(`price-chart-${ticker}`).innerHTML = `<p class="error">Error: ${data[ticker].error}</p>`;
-//         } else {
-//             createPriceChart(ticker, data[ticker]);
-//             createKDEChart(ticker, data[ticker]);
-//             createGainsLossesCharts(ticker, data[ticker]);
-//             createStatsTable(ticker, data[ticker]);
-//         }
-//     });
-// }
 function processHistoricalData(data) {
     const resultsDiv = document.getElementById('results');
     resultsDiv.innerHTML = '';
@@ -99,33 +70,6 @@ function processHistoricalData(data) {
 }
 
 
-// function createPriceChart(ticker, data) {
-//     const trace = {
-//         x: data.dates,
-//         close: data.close,
-//         high: data.high,
-//         low: data.low,
-//         open: data.open,
-//         type: 'candlestick',
-//         xaxis: 'x',
-//         yaxis: 'y'
-//     };
-
-//     const layout = {
-//         dragmode: 'zoom',
-//         showlegend: false,
-//         title: `${ticker} Price Chart`,
-//         xaxis: {
-//             rangeslider: {visible: false},
-//             title: 'Date'
-//         },
-//         yaxis: {
-//             title: 'Price'
-//         }
-//     };
-
-//     Plotly.newPlot(`price-chart-${ticker}`, [trace], layout);
-// }
 
 function createPriceChart(ticker, data, chartType = 'candlestick') {
     let traces = [];
@@ -315,24 +259,6 @@ function addSectorStatisticsTable(ticker, data) {
 }
 
 
-// function createKDEChart(ticker, data) {
-//     const traces = data.sectors.map((sector, i) => ({
-//         x: sector.kdeX,
-//         y: sector.kdeY,
-//         type: 'scatter',
-//         mode: 'lines',
-//         name: `Sector ${i + 1}`
-//     }));
-
-//     const layout = {
-//         title: `${ticker} KDE by Sector`,
-//         xaxis: {title: 'Price'},
-//         yaxis: {title: 'Density'},
-//         showlegend: true
-//     };
-
-//     Plotly.newPlot(`kde-chart-${ticker}`, traces, layout);
-// }
 
 function createKDEChart(ticker, data) {
     const chartDiv = document.getElementById(`kde-chart-${ticker}`);
@@ -438,41 +364,6 @@ function integrate(x, y) {
 }
 
 
-// function createGainsLossesCharts(ticker, data) {
-//     const gains = data.close.map((close, i) => i > 0 ? Math.max(0, close - data.close[i-1]) : 0);
-//     const losses = data.close.map((close, i) => i > 0 ? Math.min(0, close - data.close[i-1]) : 0);
-
-//     const gainsTrace = {
-//         x: data.dates,
-//         y: gains,
-//         type: 'bar',
-//         name: 'Gains',
-//         marker: {color: 'greenyellow'}
-//     };
-
-//     const lossesTrace = {
-//         x: data.dates,
-//         y: losses,
-//         type: 'bar',
-//         name: 'Losses',
-//         marker: {color: 'red'}
-//     };
-
-//     const gainsLayout = {
-//         title: `${ticker} Gains`,
-//         xaxis: {title: 'Date'},
-//         yaxis: {title: 'Gain'}
-//     };
-
-//     const lossesLayout = {
-//         title: `${ticker} Losses`,
-//         xaxis: {title: 'Date'},
-//         yaxis: {title: 'Loss'}
-//     };
-
-//     Plotly.newPlot(`gains-chart-${ticker}`, [gainsTrace], gainsLayout);
-//     Plotly.newPlot(`losses-chart-${ticker}`, [lossesTrace], lossesLayout);
-// }
 
 function createGainsLossesChart(ticker, data) {
     const changes = data.close.map((close, i) => i > 0 ? close - data.close[i-1] : 0);
@@ -502,11 +393,6 @@ function createGainsLossesChart(ticker, data) {
     Plotly.newPlot(`gains-losses-chart-${ticker}`, [trace], layout);
 }
 
-// function updateBoundaryVisibility(ticker, visible) {
-//     Plotly.restyle(`price-chart-${ticker}`, {
-//         visible: visible
-//     }, Array.from({length: data.sectors.length}, (_, i) => i + data.sectors.length + 1));
-// }
 function updateBoundaryVisibility(ticker, visible) {
     const chart = document.getElementById(`price-chart-${ticker}`);
     const data = chart.data;
@@ -523,43 +409,6 @@ function generateClusterColors(numClusters) {
     );
 }
 
-// function createStatsTable(ticker, data) {
-//     const stats = calculateStats(data);
-//     const table = document.createElement('table');
-//     table.className = 'stats-table';
-
-//     const headers = ['Statistic', 'Value'];
-//     const headerRow = table.insertRow();
-//     headers.forEach(header => {
-//         const th = document.createElement('th');
-//         th.textContent = header;
-//         headerRow.appendChild(th);
-//     });
-
-//     Object.entries(stats).forEach(([key, value]) => {
-//         const row = table.insertRow();
-//         const keyCell = row.insertCell();
-//         const valueCell = row.insertCell();
-//         keyCell.textContent = key;
-//         valueCell.textContent = typeof value === 'number' ? value.toFixed(2) : value;
-//     });
-
-//     // Find the correct ticker section
-//     const tickerSections = document.querySelectorAll('.ticker-section');
-//     let tickerSection;
-//     for (let section of tickerSections) {
-//         if (section.querySelector('h2').textContent === ticker) {
-//             tickerSection = section;
-//             break;
-//         }
-//     }
-
-//     if (tickerSection) {
-//         tickerSection.appendChild(table);
-//     } else {
-//         console.error(`Ticker section for ${ticker} not found`);
-//     }
-// }
 
 function createStatsTables(ticker, data) {
     const stats = calculateStats(data);
@@ -594,29 +443,6 @@ function createTable(title, rows, stats) {
     return table;
 }
 
-// function calculateStats(data) {
-//     const close = data.close;
-//     const volume = data.volume;
-//     const returns = close.map((price, i) => i > 0 ? (price - close[i-1]) / close[i-1] : 0);
-
-//     return {
-//         'Mean': mean(close),
-//         'Min': Math.min(...close),
-//         'Max': Math.max(...close),
-//         'Mode': mode(close),
-//         'Median': median(close),
-//         'Standard Deviation': standardDeviation(close),
-//         'Weighted Average': weightedAverage(close),
-//         'Avg Volume': mean(volume),
-//         'Min Volume': Math.min(...volume),
-//         'Max Volume': Math.max(...volume),
-//         'Average Gain': mean(returns.filter(r => r > 0)),
-//         'Average Loss': mean(returns.filter(r => r < 0)),
-//         'Max Gain': Math.max(...returns),
-//         'Max Loss': Math.min(...returns),
-//         'Buy and Hold Return': (close[close.length - 1] - close[0]) / close[0]
-//     };
-// }
 
 function calculateStats(data) {
     const close = data.close;
