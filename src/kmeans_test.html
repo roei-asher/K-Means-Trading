@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KMeans Strategy Historical Data Test</title>
+    <link rel="stylesheet" href="kmeans_test.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <h1>KMeans Strategy Historical Data Test</h1>
+
+    <form id="dataForm">
+        <div class="form-grid">
+            <div>
+                <label for="tickers">Tickers (comma-separated):</label>
+                <input type="text" id="tickers" name="tickers" required>
+            </div>
+            <div>
+                <label for="barSize">Bar Size:</label>
+                <select id="barSize" name="barSize" required>
+                    <option value="1 min">1 minute</option>
+                    <option value="5 mins">5 minutes</option>
+                    <option value="15 mins">15 minutes</option>
+                    <option value="1 hour">1 hour</option>
+                    <option value="1 day">1 day</option>
+                </select>
+            </div>
+            <div>
+                <label for="duration">Duration:</label>
+                <select id="duration" name="duration" required>
+                    <option value="1 D">1 Day</option>
+                    <option value="1 W">1 Week</option>
+                    <option value="1 M">1 Month</option>
+                    <option value="3 M">3 Months</option>
+                    <option value="6 M">6 Months</option>
+                    <option value="1 Y">1 Year</option>
+                    <option value="2 Y">2 Years</option>
+                    <option value="3 Y">3 Years</option>
+                    <option value="4 Y">4 Years</option>
+                    <option value="5 Y">5 Years</option>
+                </select>
+            </div>
+            <div>
+                <label for="rth">
+                    <input type="checkbox" id="rth" name="rth">
+                    Regular Trading Hours Only
+                </label>
+            </div>
+        </div>
+        <button type="submit">Get Data</button>
+    </form>
+
+    <div id="results"></div>
+
+    <script src="kmeans_test.js"></script>
+</body>
+</html>

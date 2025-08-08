@@ -1,0 +1,16 @@
+KMeans Strategy Data Analysis Code:
+- kmeans_test.html # dashboard
+- kmeans_test.css
+- kmeans_test.js
+- kmeans_test.py # server
+- kmeans_strategy.py
+
+
+KMeans Strategy Execution
+
+1. Login in to TWS Workstation and ensure that all datafarm connections are connected (click on DATA button).
+
+2. Start the server
+python kmeans_test.python
+
+3. Open the kmeans_test.html through the browser (or pressing go live on vs code)
