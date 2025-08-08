@@ -57,25 +57,23 @@ The system generates trading signals based on:
 
 ```mermaid
 flowchart TB
-    TWS[Interactive Brokers TWS]
-    WS[WebSocket Server<br/>(kmeans_test.py)]
-    WD[Web Dashboard<br/>(HTML / JS / CSS)]
-    KM[K-Means Strategy<br/>(kmeans_strategy.py)]
-    C1[Clustering]
-    C2[KDE Analysis]
-    C3[Signal Generation]
+  TWS["Interactive Brokers\nTWS"]
+  WS["WebSocket Server (server.py)"]
+  WD["Web Dashboard (HTML/JS/CSS)"]
+  KM["K-Means Strategy (strategy.py)"]
+  C1["Clustering"]
+  C2["KDE Analysis"]
+  C3["Signal Generation"]
 
-    TWS <--> WS <--> WD
-    WS --> KM
-    KM --> C1
-    KM --> C2
-    KM --> C3
+  TWS <--> WS <--> WD
+  WS --> KM
+  KM --> C1
+  KM --> C2
+  KM --> C3
 ```
 
 
-## Demo Visualizations
-
-Access the videos through the media folder
+## Demo Visualizations (Access the videos through the media folder)
 
 ### Single Ticker Analysis
 
@@ -107,16 +105,16 @@ pip install numpy pandas scipy scikit-learn websockets ibapi
 2. **Start the Analysis Server**
    ```bash
    cd src/
-   python kmeans_test.py
+   python server.py
    ```
 
 3. **Launch Dashboard**
    ```bash
    # Option 1: Direct browser access
-   open kmeans_test.html
+   open dashboard.html
 
    # Option 2: VS Code Live Server
-   # Right-click kmeans_test.html → "Go Live"
+   # Right-click dashboard.html → "Go Live"
    ```
 
 4. **Configure Analysis Parameters**
@@ -130,11 +128,11 @@ pip install numpy pandas scipy scikit-learn websockets ibapi
 ```
 kmeans_trading/
 ├── src/
-│   ├── kmeans_strategy.py    # Core K-means trading algorithm
-│   ├── kmeans_test.py       # WebSocket server & IB integration
-│   ├── kmeans_test.html     # Interactive web dashboard
-│   ├── kmeans_test.js       # Frontend logic & visualizations
-│   └── kmeans_test.css      # Dashboard styling
+│   ├── strategy.py    # Core K-means trading algorithm
+│   ├── server.py       # WebSocket server & IB integration
+│   ├── dashboard.html     # Interactive web dashboard
+│   ├── dashboard.js       # Frontend logic & visualizations
+│   └── dashboard.css      # Dashboard styling
 ├── media/
 │   ├── K_Means_Demo.jpeg    # Strategy visualization
 │   ├── Single_Ticker_Demo.mp4
