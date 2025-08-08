@@ -14,7 +14,7 @@
 
 ## Project Overview
 
-The **K-Means Trading Strategy** is an algorithmic trading system that leverages unsupervised machine learning to dynamically segment market price data into statistical sectors. By applying the K-means clustering algorithm to historical OHLC (Open, High, Low, Close) data, the system identifies optimal price ranges and generates trading signals based on statistical probability distributions and Kernel Density Estimation (KDE).
+The **K-Means Trading Strategy** is an algorithmic trading system that leverages unsupervised machine learning to dynamically segment market price data into statistical sectors. By applying the K-means clustering algorithm to historical OHLC (Open, High, Low, Close) data, the system identifies optimal price ranges and generates trading signals based on statistical probability distributions and Kernel Density Estimation (KDE). An interactive dashboard/stock screener is included with key statistics generation that offer quick and detailed insights on a tickers behavior over a specified timeframe.
 
 ### Key Features
 
@@ -75,13 +75,13 @@ flowchart TB
 
 ## Demo Visualizations
 
-### Single Ticker Analysis
+Access the videos through the media folder
 
+### Single Ticker Analysis
 
 *Real-time analysis showing price sectors, KDE distributions, and trading signals for individual stocks*
 
 ### Multi-Ticker Portfolio Analysis
-https://github.com/user-attachments/assets/1b3b6faa-9c91-4c26-836d-18bf6fb8f8a4
 
 *Simultaneous analysis across multiple tickers for portfolio-wide insights*
 
@@ -162,7 +162,7 @@ kmeans_trading/
 - **SELL**: Current price significantly above sector expected value
 - **HOLD**: Price near boundaries or within acceptable deviation range
 
-## 🏆 Professional Impact
+## Professional Impact
 
 This project demonstrates:
 
